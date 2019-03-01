@@ -1,4 +1,17 @@
+@php
+    $class = (empty($attributes['class'])) ? 'form-control' : 'form-control ' . $attributes['class'];
+@endphp
+
 <div class="form-group">
-    {{ Form::label($name, $label) }}
-    {{ Form::file($name, array_merge(['class' => 'form-control'], $attributes)) }}
+    @if (!empty($label))
+        <label for="{{ $name }}">{!! $label !!}</label>
+    @endif
+
+    {{ Form::file($name, array_merge($attributes, ['class' => $class])) }}
+
+    @if (!empty($attributes['default']))
+        <figure class="form-image-container">
+            <img src="{{ $attributes['default'] }}">
+        </figure>
+    @endif
 </div>

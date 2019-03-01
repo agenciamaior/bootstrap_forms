@@ -8,5 +8,5 @@
         <label for="{{ $name }}">{!! $label !!}</label>
     @endif
 
-    {{ Form::text($name, $default, array_merge($attributes, ['class' => $class])) }}
+    {{ Form::url($name, $default, array_merge($attributes, ['class' => $class])) }}
 </div>

@@ -1,4 +1,12 @@
+@php
+    $class = (empty($attributes['class'])) ? 'form-control' : 'form-control ' . $attributes['class'];
+    $default = (empty($attributes['default'])) ? null : $attributes['default'];
+@endphp
+
 <div class="form-group">
-    {{ Form::label($name, $label) }}
-    {{ Form::email($name, $default, array_merge(['class' => 'form-control ' . @$attributes['class']], $attributes)) }}
+    @if (!empty($label))
+        <label for="{{ $name }}">{!! $label !!}</label>
+    @endif
+
+    {{ Form::email($name, $default, array_merge($attributes, ['class' => $class])) }}
 </div>

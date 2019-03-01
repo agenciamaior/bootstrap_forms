@@ -1,6 +1,12 @@
-{{ Form::open(['url' => $route, 'method' => 'delete', 'class' => @$attributes['class']]) }}
+@php
+    $formClass = (!empty($attributes['form_class'])) ? $attributes['form_class'] : '';
+    $buttonClass = (!empty($attributes['button_class'])) ? $attributes['button_class'] : 'btn btn-danger';
+    $buttonId = (!empty($attributes['button_id'])) ? $attributes['button_id'] : '';
+@endphp
 
-<button type="submit" class="{{ !empty($attributes['button_class']) ? $attributes['button_class'] : 'btn btn-danger' }}" id="{{ !empty($attributes['id']) ? $attributes['id'] : '' }}">
+{{ Form::open(['url' => $route, 'method' => 'delete', 'class' => $formClass]) }}
+
+<button type="submit" class="{{ $buttonClass }}" id="{{ $buttonId }}">
     @php
         $hasIcon = true;
         $icon = 'trash';
@@ -18,7 +24,7 @@
         <i class="fa fa-{{ $icon }}"></i> 
     @endif
     
-    {{ $text }}
+    {!! $text !!}
 </button>
 
 {{ Form::close() }}

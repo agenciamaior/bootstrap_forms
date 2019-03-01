@@ -1,7 +1,13 @@
-<div class="form-group checkbox">
-    <label for="{{ $name }}">
-        {{ Form::checkbox($name, $value, null, array_merge(['id' => $name], $attributes)) }}
+@php
+    $class = (empty($attributes['class'])) ? 'form-check-input' : 'form-check-input ' . $attributes['class'];
 
-        {{ $label }}
+    $attributes['id'] = $name;
+@endphp
+
+<div class="form-check">
+    {{ Form::checkbox($name, $value, null, array_merge($attributes, ['class' => $class])) }}
+
+    <label class="form-check-label" for="{{ $name }}">
+        {!! $label !!}
     </label>
 </div>
