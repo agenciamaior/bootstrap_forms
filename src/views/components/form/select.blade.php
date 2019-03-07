@@ -3,6 +3,10 @@
     $default = (empty($attributes['default'])) ? null : $attributes['default'];
     
     $attributes['id'] = (!empty($attributes['id'])) ? $attributes['id'] : $name;
+
+    if (!array_key_exists('placeholder', $attributes)) {
+        $attributes['placeholder'] = '';
+    }
 @endphp
 
 <div class="form-group">
