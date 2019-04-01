@@ -1,14 +1,16 @@
 @php
     $baseClass = class_basename($model);
 
-    $routeName = str_plural(strtolower($baseClass));
+    $routePrefix = (empty($attributes['route_prefix'])) ? str_plural(strtolower($baseClass)) : $attributes['route_prefix'];
     $modelName = strtolower($baseClass);
 
-    $url = ($model->id) ? route($routeName . '.update', [$modelName => $model]) : route($routeName . '.store');
+    $url = ($model->id) ? route($routePrefix . '.update', [$modelName => $model]) : route($routePrefix . '.store');
 
     $method = ($model->id) ? 'put' : 'post';
 @endphp
 
 {{ Form::model($model, array_merge(['url' => $url, 'method' => $method], $attributes)) }}
 
-{{ Form::hidden('id', $model->id, ['id' => 'id']) }}
+@if ($model->id)
+    {{ Form::hidden('id', $model->id, ['id' => 'id']) }}
+@endif

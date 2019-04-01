@@ -1,6 +1,6 @@
 <?php
 
-namespace KdymSolucoes\BootstrapForms;
+namespace AgenciaMaior\BootstrapForms;
 
 use Illuminate\Support\ServiceProvider;
 use Form;
@@ -35,9 +35,9 @@ class BootstrapFormsServiceProvider extends ServiceProvider
 
         Html::component('bsDelete', 'bootstrap_forms::components.html.delete-link', ['text', 'route', 'attributes' => []]);
 
-        $this->publishes([
-            __DIR__ . '/assets/js/bootstrap_forms.js' => resource_path('js/bootstrap_forms.js'),
-        ], 'bootstrap_forms_js');
+        // $this->publishes([
+        //     __DIR__ . '/assets/js/bootstrap_forms.js' => resource_path('js/bootstrap_forms.js'),
+        // ], 'bootstrap_forms_js');
     }
 
     /**

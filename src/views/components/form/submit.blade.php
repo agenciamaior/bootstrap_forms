@@ -8,8 +8,8 @@
         $hasIcon = true;
         $icon = 'check';
 
-        if (isset($attributes['icon'])) {
-            if ($attributes['icon'] == false) {
+        if (array_key_exists('icon', $attributes)) {
+            if ($attributes['icon'] == null) {
                 $hasIcon = false;
             } else {
                 $icon = $attributes['icon'];

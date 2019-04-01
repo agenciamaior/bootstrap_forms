@@ -2,7 +2,7 @@
     $class = (empty($attributes['class'])) ? 'form-check-input' : 'form-check-input ' . $attributes['class'];
     $default = (empty($attributes['default'])) ? null : $attributes['default'];
 
-    $attributes['id'] = str_slug($name . ' ' . $value);
+    $attributes['id'] = (empty($attributes['id'])) ? str_slug($name . ' ' . $value) : $attributes['id'];
 @endphp
 
 <div class="form-check">

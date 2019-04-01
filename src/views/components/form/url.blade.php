@@ -1,6 +1,8 @@
 @php
     $class = (empty($attributes['class'])) ? 'form-control' : 'form-control ' . $attributes['class'];
     $default = (empty($attributes['default'])) ? null : $attributes['default'];
+
+    unset($attributes['default']);
     
     $attributes['id'] = (!empty($attributes['id'])) ? $attributes['id'] : $name;
 @endphp
