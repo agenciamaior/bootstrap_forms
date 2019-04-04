@@ -1,6 +1,6 @@
 @php
     $formClass = (!empty($attributes['form_class'])) ? $attributes['form_class'] : '';
-    $buttonClass = (!empty($attributes['button_class'])) ? $attributes['button_class'] : 'btn btn-danger';
+    $buttonClass = (!empty($attributes['button_class'])) ? $attributes['button_class'] : '';
     $buttonId = (!empty($attributes['button_id'])) ? $attributes['button_id'] : '';
 @endphp
 
@@ -8,7 +8,7 @@
 
 <button type="submit" class="{{ $buttonClass }}" id="{{ $buttonId }}">
     @php
-        $hasIcon = true;
+        $hasIcon = false;
         $icon = 'trash';
 
         if (isset($attributes['icon'])) {
@@ -16,6 +16,7 @@
                 $hasIcon = false;
             } else {
                 $icon = $attributes['icon'];
+                $hasIcon = true;
             }
         }
     @endphp

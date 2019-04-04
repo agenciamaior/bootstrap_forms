@@ -1,6 +1,11 @@
 @php
     $class = (empty($attributes['class'])) ? 'form-control' : 'form-control ' . $attributes['class'];
-    $default = (empty($attributes['default'])) ? null : $attributes['default'];
+    
+    $default = null;
+
+    if (array_key_exists('default', $attributes)) {
+        $default = $attributes['default'];
+    }
 
     unset($attributes['default']);
     

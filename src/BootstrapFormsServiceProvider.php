@@ -33,7 +33,7 @@ class BootstrapFormsServiceProvider extends ServiceProvider
 
         Form::component('bsSubmit', 'bootstrap_forms::components.form.submit', ['text', 'attributes' => []]);
 
-        Html::component('bsDelete', 'bootstrap_forms::components.html.delete-link', ['text', 'route', 'attributes' => []]);
+        Html::component('deleteLink', 'bootstrap_forms::components.html.delete-link', ['text', 'route', 'attributes' => []]);
 
         // $this->publishes([
         //     __DIR__ . '/assets/js/bootstrap_forms.js' => resource_path('js/bootstrap_forms.js'),

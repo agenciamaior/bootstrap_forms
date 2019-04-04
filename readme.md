@@ -575,7 +575,7 @@ class PedidosController extends Controller
 {
     //...
 
-    public function index() {
+    public function create() {
         $pedido = new Pedido;
 
         return view('pedidos.index', [
@@ -587,7 +587,7 @@ class PedidosController extends Controller
 }
 ```
 
-E sua respectiva view *pedidos/index.blade.php*:
+E sua respectiva view *pedidos/create.blade.php*:
 
 ```php
 //...
@@ -601,7 +601,7 @@ E sua respectiva view *pedidos/index.blade.php*:
 //...
 ```
 
-Ao identificar a variável **$pedido** como um novo Model, a função *restForm* vai tentar obter o nome da variável no plural e procurar dentro do arquivo *routes/web.php* por uma rota chamada **pedidos.store**, por isso, devemos criar essa rota dentro desse arquivo, por exemplo:
+Ao identificar a variável **$pedido** como um novo Model, a função *restForm* vai tentar procurar dentro do arquivo *routes/web.php* por uma rota com o *name* **pedidos.store**, por isso, devemos criar essa rota dentro desse arquivo, por exemplo:
 
 ```php
 //...
@@ -611,11 +611,37 @@ Route::post('/pedidos', 'PedidosController@store')->name('pedidos.store');
 //...
 ```
 
+*HTML gerado pela função*
+
 ```html
-<form method="POST" action="/pedidos" accept-charset="UTF-8">
+<form method="POST" action="{{ route('pedidos.store') }}" accept-charset="UTF-8">
     <input name="_token" type="hidden" value="token_csrf_gerado_automaticamente">
 
 </form>
+```
+
+A função *restForm* vai tentar utilizar o nome da variável para buscar as rotas. No nosso exemplo, a variável é **$pedido** (no singular) e o prefixo da rota seria **pedidos** (no plural). Você pode alterar esse prefixo através do atributo **route_prefix**. Exemplo:
+
+```php
+//...
+
+{{ Form::restForm($pedido, ['route_prefix' => 'requests']) }}
+
+//...
+
+{{ Form::close() }}
+
+//...
+```
+
+*routes/web.php*
+
+```php
+//...
+
+Route::post('/pedidos', 'PedidosController@store')->name('requests.store');
+
+//...
 ```
 
 ##### Exemplo com Update
@@ -633,7 +659,7 @@ class PedidosController extends Controller
     //...
 
     public function edit() {
-        $pedido = Pedido::find(10);
+        $pedido = Pedido::find(10); //ID fictício
 
         return view('pedidos.edit', [
             'pedido' => $pedido,
@@ -658,7 +684,7 @@ E sua respectiva view *pedidos/edit.blade.php*:
 //...
 ```
 
-Ao identificar a variável **$pedido** como registro existente, a função *restForm* vai tentar obter o nome da variável no plural, trocar automaticamente o método do formulário de *POST* para *PUT* e procurar dentro do arquivo *routes/web.php* por uma rota chamada **pedidos.update** com o parâmetro, por isso, devemos criar essa rota dentro desse arquivo, por exemplo:
+Ao identificar a variável **$pedido** como registro existente, a função *restForm* vai tentar procurar dentro do arquivo *routes/web.php* por uma rota com um *name* **pedidos.update** e com um parâmetro *pedido*, por isso, devemos criar essa rota dentro desse arquivo, por exemplo:
 
 ```php
 //...
@@ -668,8 +694,12 @@ Route::put('/pedidos/{pedido}', 'PedidosController@update')->name('pedidos.updat
 //...
 ```
 
+Diferente do *Insert*, que utilizar o método **POST**, a função vai usar o método **PUT** nas rotas para realizar o update.
+
+*HTML gerado pela função*
+
 ```html
-<form method="PUT" action="/pedidos" accept-charset="UTF-8">
+<form method="PUT" action="{{ route('pedidos.update', ['pedido' => $pedido]) }}" accept-charset="UTF-8">
     <input name="_token" type="hidden" value="token_csrf_gerado_automaticamente">
     <input type="hidden" name="id" id="id" value="10" />
 </form>
@@ -677,6 +707,57 @@ Route::put('/pedidos/{pedido}', 'PedidosController@update')->name('pedidos.updat
 
 A função vai gerar um campo do tipo *hidden* com valor do ID do registro selecionado.
 
-##### Alterar as rotas
+A função *restForm* vai tentar utilizar o nome da variável para buscar as rotas. No nosso exemplo, a variável é **$pedido** (no singular) e o prefixo da rota seria **pedidos** (no plural). Você pode alterar esse prefixo através do atributo **route_prefix**. Exemplo:
 
-...to do...
+```php
+//...
+
+{{ Form::restForm($pedido, ['route_prefix' => 'requests']) }}
+
+//...
+
+{{ Form::close() }}
+
+//...
+```
+
+*routes/web.php*
+
+```php
+//...
+
+Route::put('/pedidos/{pedido}', 'PedidosController@update')->name('requests.update');
+
+//...
+```
+
+Assim como o prefixo das rotas vai tentar utilizar o nome no plural da variável. O parâmetro da rota vai tentar utilizar o nome no singular da variável. Você pode alterar o nome desse parâmetro através do atributo **route_param_name**. Exemplo:
+
+```php
+//...
+
+{{ Form::restForm($pedido, ['route_param_name' => 'ped']) }}
+
+//...
+
+{{ Form::close() }}
+
+//...
+```
+
+*routes/web.php*
+
+```php
+//...
+
+Route::put('/pedidos/{ped}', 'PedidosController@update')->name('pedidos.update');
+
+//...
+```
+
+```html
+<form method="PUT" action="{{ route('pedidos.update', ['ped' => $pedido]) }}" accept-charset="UTF-8">
+    <input name="_token" type="hidden" value="token_csrf_gerado_automaticamente">
+    <input type="hidden" name="id" id="id" value="10" />
+</form>
+```
