@@ -761,3 +761,70 @@ Route::put('/pedidos/{ped}', 'PedidosController@update')->name('pedidos.update')
     <input type="hidden" name="id" id="id" value="10" />
 </form>
 ```
+
+#### deleteLink
+
+```php
+{{ Html::deleteLink($text, $route, $attributes = []) }}
+```
+
+| Campos      | Obrigatório | Descrição |
+| ------      | ----------- | --------- |
+| text        | Sim         | Texto do link |
+| route       | Sim         | Caminho para onde o link leva |
+| attributes  | Não         | Atributos que podem ser alterados dentro do link |
+
+O padrão REST do Laravel recomenda que qualquer função destrutiva, como excluir um registro, seja chamada através de um método *DELETE* ao invés do GET padrão que os links utilizam. Essa função simula um link com uma requisição *DELETE* através de um formulário:
+
+#### Exemplo
+
+```php
+{{ Form::deleteLink('Excluir', '/pedido/delete') }}
+```
+
+```html
+<form method="POST" action="/pedido/delete" accept-charset="UTF-8">
+    <input name="_method" type="hidden" value="DELETE">
+    <input name="_token" type="hidden" value="token_csrf_gerado_automaticamente">
+
+    <button type="submit">
+        Excluir
+    </button>
+</form>
+```
+
+#### Exemplo com atributos
+
+```php
+{{ Form::deleteLink('Excluir', '/pedido/delete', ['form_class' => 'form-1', 'button_class' => 'btn btn-danger', 'button_id' => 'btn-delete']) }}
+```
+
+```html
+<form method="POST" action="/pedido/delete" accept-charset="UTF-8" class="form-1">
+    <input name="_method" type="hidden" value="DELETE">
+    <input name="_token" type="hidden" value="token_csrf_gerado_automaticamente">
+
+    <button type="submit" class="btn btn-danger" id="btn-delete">
+        Excluir
+    </button>
+</form>
+```
+
+#### Exemplo com ícone
+
+```php
+{{ Form::deleteLink('Excluir', '/pedido/delete', ['icon' => 'trash']) }}
+```
+
+```html
+<form method="POST" action="/pedido/delete" accept-charset="UTF-8">
+    <input name="_method" type="hidden" value="DELETE">
+    <input name="_token" type="hidden" value="token_csrf_gerado_automaticamente">
+
+    <button type="submit">
+        <i class="fa fa-trash"></i>
+
+        Excluir
+    </button>
+</form>
+```
