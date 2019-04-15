@@ -7,13 +7,14 @@ Biblioteca que gera tags HTML de formulários e campos com estilos do Bootstrap 
 3. [Utilização](#utilizacao)
     1. [bsText](#text)
     2. [bsSelect](#select)
-    5. [bsSubmit](#submit)
-        1. [Attributes](#submit_attributes)
-    6. [restForm](#rest_form)
-        1. [Exemplo de utilização com insert](#rest_form_insert)
-        2. [Exemplo de utilização com update](#rest_form_update)
-    7. [bsDelete](#delete)
-        1. [Attributes](#delete_attributes)
+    3. [bsFile](#file)
+    4. [bsCheckbox](#checkbox)
+    5. [bsRadio](#radio)
+    6. [bsTextarea](#textarea)
+    7. [bsSubmit](#submit)
+    8. [Formulário](#form)
+    9. [restForm](#rest_form)
+    10. [deleteLink](#delete)
 
 ## <a name="dependencias"></a> Dependências
 
@@ -551,7 +552,7 @@ Esse pacote instala automaticamente a biblioteca **Laravel Forms**. Nenhuma conf
 </form>
 ```
 
-#### restForm
+### <a name="rest_form"></a> restForm
 
 ```php
 {{ Form::restForm($model, $attributes = []) }}
@@ -561,7 +562,7 @@ Esse pacote instala automaticamente a biblioteca **Laravel Forms**. Nenhuma conf
 {{ Form::close() }}
 ```
 
-##### Exemplo com Insert
+#### Exemplo com Insert
 
 Suponha um model **Pedido** com o seguinte Controller *PedidosController.php*:
 
@@ -644,7 +645,7 @@ Route::post('/pedidos', 'PedidosController@store')->name('requests.store');
 //...
 ```
 
-##### Exemplo com Update
+#### Exemplo com Update
 
 Suponha um model **Pedido** com o seguinte Controller *PedidosController.php*:
 
@@ -762,7 +763,7 @@ Route::put('/pedidos/{ped}', 'PedidosController@update')->name('pedidos.update')
 </form>
 ```
 
-#### deleteLink
+### <a name="delete"></a> deleteLink
 
 ```php
 {{ Html::deleteLink($text, $route, $attributes = []) }}
